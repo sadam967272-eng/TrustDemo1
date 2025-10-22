@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>المنتجات - للعملاء</title>
+
+  <!-- Google fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400..800&family=Noto+Naskh+Arabic:wght@400..700&family=Noto+Sans+Arabic:wght@100..900&family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
+
+  <!-- Icon Font Stylesheet -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- css Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/products-board.css">
+
+  <style>
+    /* Public header minimal layout */
+    .public-header {
+      position: fixed;
+      top: 0; right: 0; left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      background: var(--container-bg-color);
+      border-bottom: 1px solid var(--border-color);
+      z-index: 1000;
+    }
+        
+    .big-logo {
+      width: 300px;
+      height: auto;
+    }       
+        
+    .public-brand {
+      display: flex; align-items: center; gap: 10px;
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .public-login-btn {
+      border: 1px solid var(--border-color);
+      background: none;
+      color: var(--text-color);
+      padding: 8px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-family: "Noto Naskh Arabic", serif;
+      font-size: 15px;
+    }
+    .public-login-btn:hover { background: var(--button-color); color: var(--light-color); }
+    .page-wrap { padding-top: 100px; }
+    .public-logo {
+      width: 36px; height: 36px; border-radius: 8px; object-fit: cover;
+      background: var(--button-color);
+    }
+    .hero {
+      margin-top: 10px;
+      margin-bottom: 1px;
+      background: none;
+      border: none;
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+    }
+    .hero-title { color: var(--primary-color); font-size: 28px; margin-bottom: 10px; }
+    .hero-text { color: var(--text2-color); font-size: 18px; line-height: 1.7; max-width: 800px; margin: 0 auto; }
+        
+    @media (max-width: 768px) {
+      .big-logo {
+        width: 250px;
+        height: auto;
+      }
+    }
+    @media (max-width: 480px) {
+      .big-logo {
+        width: 210px;
+      }
+      .hero-title { color: var(--primary-color); font-size: 24px; margin-bottom: 10px; }
+      .hero-text { color: var(--text2-color); font-size: 15px; line-height: 1.7; max-width: 800px; margin: 0 auto; }
+    }
+  </style>
+</head>
+<body class="theme1">
+  <script>
+    (function(){
+      try{ var savedTheme = localStorage.getItem('selectedTheme'); if(savedTheme){ document.body.className = savedTheme; } }catch(e){}
+    })();
+  </script>
+
+  <!-- Header -->
+  <header class="public-header">
+    <a class="public-brand" href="#" aria-label="أرشيف الثقة التجارية">
+      <img class="public-logo" src="img/tg.png" alt="شعار أرشيف الثقة التجارية" onerror="this.style.display='none'">
+      <div class="logo-text">أرشيف الثقة التجارية</div>
+    </a>
+    <a class="public-login-btn" href="login.html"><i class="fa-solid fa-right-to-bracket" style="margin-left:6px;"></i>تسجيل الدخول</a>
+  </header>
+
+  <!-- زر تغيير الثيم -->
+  <button class="change-theme" id="theme-toggle"><i class="fa-solid fa-palette"></i></button>
+
+  <div class="page-wrap">
+    <div class="container">
+      <section class="hero" aria-label="ترحيب">
+        <img src="img/tg-logo.png" class="big-logo" alt="شعار">
+        <h1 class="hero-title"> </h1>
+        <p class="hero-text"></p>
+      </section>
+    </div>
+    
+    <!-- Products Section -->
+    <section id="products-board" class="section">
+      <div class="container">
+        <!-- Filters -->
+        <div class="filters-container">
+          <div class="filters-grid">
+            <div class="filter-group"><input class="sreach" type="text" id="searchInput" placeholder="&#128269;   ابحث عن منتج"></div>
+            <div class="filter-group">
+              <select id="sortFilter">
+                <option value="date">الأحدث أولاً</option>
+                <option value="price-high">السعر: عالي إلى منخفض</option>
+                <option value="price-low">السعر: منخفض إلى عالي</option>
+              </select>
+            </div>
+            <div class="filter-group"><button class="clear-filters-btn" id="clearBtn">مسح</button></div>
+          </div>
+        </div>
+
+        <div class="view-mode-container">
+          <label for="viewMode"><i class="fa-solid fa-bars"></i> اسلوب العرض</label>
+          <select id="viewMode">
+            <option value="compact-grid" selected>شبكة</option>
+            <option value="grid">اكثر اتساعاً</option>
+            <option value="list">قائمة</option>
+          </select>
+        </div>
+
+        <!-- Products Grid with Static Data -->
+        <div class="products-grid compact-grid" id="productsGrid">
+          <!-- Product 1 -->
+          <div class="product-card" data-id="1">
+            <div class="product-image-container">
+              <div class="product-meta-overlay">
+                <span class="product-category"><i class="fa-solid fa-layer-group"></i> إلكترونيات</span>
+                <span class="product-supplier">مورد صيني</span>
+                <span class="product-serial">SN: PRD001</span>
+              </div>
+              <div class="product-image">
+                <img src="https://via.placeholder.com/400x200/1a1a2e/ffffff?text=منتج+1" alt="منتج 1">
+              </div>
+            </div>
+            <div class="product-info">
+              <h3 class="product-title">سماعات لاسلكية عالية الجودة<span><i class="fa fa-address-book-o" aria-hidden="true"></i> أحمد</span></h3>
+              <div class="product-meta-overlay2">
+                <span class="product-category2">إلكترونيات</span>
+                <span class="product-supplier2">مورد صيني</span>
+                <span class="product-serial2">SN: PRD001</span>
+                <span class="product-price2">$299</span>
+              </div>
+              <p class="product-description">سماعات لاسلكية مع تقنية إلغاء الضوضاء وبطارية طويلة الأمد</p>
+              <div class="product-prices">
+                <div class="price-item">
+                  <span class="price-label"></span>
+                  <span class="price-amount">$299</span>
+                  <span class="price-currency">افضل سعر</span>
+                </div>
+              </div>
+              <div class="product-actions">
+                <a href="product-guest.html?id=1" class="product-button"><i class="fa-solid fa-info"></i> تفاصيل المنتج</a>
+                <a href="https://wa.me/8613020990375?text=السلام+عليكم،+أود+طلب+هذا+المنتج" target="_blank" class="product-button"><i class="fab fa-whatsapp"></i> اطلب المنتج واتس اب</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 2 -->
+          <div class="product-card" data-id="2">
+            <div class="product-image-container">
+              <div class="product-meta-overlay">
+                <span class="product-category"><i class="fa-solid fa-layer-group"></i> أثاث</span>
+                <span class="product-supplier">مورد تركي</span>
+                <span class="product-serial">SN: PRD002</span>
+              </div>
+              <div class="product-image">
+                <img src="https://via.placeholder.com/400x200/2c3e50/ffffff?text=منتج+2" alt="منتج 2">
+              </div>
+            </div>
+            <div class="product-info">
+              <h3 class="product-title">طاولة خشبية فاخرة<span><i class="fa fa-address-book-o" aria-hidden="true"></i> محمد</span></h3>
+              <div class="product-meta-overlay2">
+                <span class="product-category2">أثاث</span>
+                <span class="product-supplier2">مورد تركي</span>
+                <span class="product-serial2">SN: PRD002</span>
+                <span class="product-price2">$850</span>
+              </div>
+              <p class="product-description">طاولة خشبية صلبة بتصميم عصري مناسبة لغرف المعيشة</p>
+              <div class="product-prices">
+                <div class="price-item">
+                  <span class="price-label"></span>
+                  <span class="price-amount">$850</span>
+                  <span class="price-currency">افضل سعر</span>
+                </div>
+              </div>
+              <div class="product-actions">
+                <a href="product-guest.html?id=2" class="product-button"><i class="fa-solid fa-info"></i> تفاصيل المنتج</a>
+                <a href="https://wa.me/8613020990375?text=السلام+عليكم،+أود+طلب+هذا+المنتج" target="_blank" class="product-button"><i class="fab fa-whatsapp"></i> اطلب المنتج واتس اب</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 3 -->
+          <div class="product-card" data-id="3">
+            <div class="product-image-container">
+              <div class="product-meta-overlay">
+                <span class="product-category"><i class="fa-solid fa-layer-group"></i> ملابس</span>
+                <span class="product-supplier">مورد إيطالي</span>
+                <span class="product-serial">SN: PRD003</span>
+              </div>
+              <div class="product-image">
+                <img src="https://via.placeholder.com/400x200/34495e/ffffff?text=منتج+3" alt="منتج 3">
+              </div>
+            </div>
+            <div class="product-info">
+              <h3 class="product-title">بدلة رجالية كلاسيكية<span><i class="fa fa-address-book-o" aria-hidden="true"></i> خالد</span></h3>
+              <div class="product-meta-overlay2">
+                <span class="product-category2">ملابس</span>
+                <span class="product-supplier2">مورد إيطالي</span>
+                <span class="product-serial2">SN: PRD003</span>
+                <span class="product-price2">$450</span>
+              </div>
+              <p class="product-description">بدلة رجالية أنيقة من القماش الإيطالي الفاخر</p>
+              <div class="product-prices">
+                <div class="price-item">
+                  <span class="price-label"></span>
+                  <span class="price-amount">$450</span>
+                  <span class="price-currency">افضل سعر</span>
+                </div>
+              </div>
+              <div class="product-actions">
+                <a href="product-guest.html?id=3" class="product-button"><i class="fa-solid fa-info"></i> تفاصيل المنتج</a>
+                <a href="https://wa.me/8613020990375?text=السلام+عليكم،+أود+طلب+هذا+المنتج" target="_blank" class="product-button"><i class="fab fa-whatsapp"></i> اطلب المنتج واتس اب</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 4 -->
+          <div class="product-card" data-id="4">
+            <div class="product-image-container">
+              <div class="product-meta-overlay">
+                <span class="product-category"><i class="fa-solid fa-layer-group"></i> رياضة</span>
+                <span class="product-supplier">مورد ألماني</span>
+                <span class="product-serial">SN: PRD004</span>
+              </div>
+              <div class="product-image">
+                <img src="https://via.placeholder.com/400x200/16a085/ffffff?text=منتج+4" alt="منتج 4">
+              </div>
+            </div>
+            <div class="product-info">
+              <h3 class="product-title">دراجة هوائية احترافية<span><i class="fa fa-address-book-o" aria-hidden="true"></i> سالم</span></h3>
+              <div class="product-meta-overlay2">
+                <span class="product-category2">رياضة</span>
+                <span class="product-supplier2">مورد ألماني</span>
+                <span class="product-serial2">SN: PRD004</span>
+                <span class="product-price2">$1200</span>
+              </div>
+              <p class="product-description">دراجة هوائية من ألياف الكربون خفيفة الوزن ومتينة</p>
+              <div class="product-prices">
+                <div class="price-item">
+                  <span class="price-label"></span>
+                  <span class="price-amount">$1200</span>
+                  <span class="price-currency">افضل سعر</span>
+                </div>
+              </div>
+              <div class="product-actions">
+                <a href="product-guest.html?id=4" class="product-button"><i class="fa-solid fa-info"></i> تفاصيل المنتج</a>
+                <a href="https://wa.me/8613020990375?text=السلام+عليكم،+أود+طلب+هذا+المنتج" target="_blank" class="product-button"><i class="fab fa-whatsapp"></i> اطلب المنتج واتس اب</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 5 -->
+          <div class="product-card" data-id="5">
+            <div class="product-image-container">
+              <div class="product-meta-overlay">
+                <span class="product-category"><i class="fa-solid fa-layer-group"></i> مطبخ</span>
+                <span class="product-supplier">مورد ياباني</span>
+                <span class="product-serial">SN: PRD005</span>
+              </div>
+              <div class="product-image">
+                <img src="https://via.placeholder.com/400x200/e74c3c/ffffff?text=منتج+5" alt="منتج 5">
+              </div>
+            </div>
+            <div class="product-info">
+              <h3 class="product-title">طقم سكاكين ياباني<span><i class="fa fa-address-book-o" aria-hidden="true"></i> فاطمة</span></h3>
+              <div class="product-meta-overlay2">
+                <span class="product-category2">مطبخ</span>
+                <span class="product-supplier2">مورد ياباني</span>
+                <span class="product-serial2">SN: PRD005</span>
+                <span class="product-price2">$380</span>
+              </div>
+              <p class="product-description">طقم سكاكين احترافي من الفولاذ الياباني عالي الجودة</p>
+              <div class="product-prices">
+                <div class="price-item">
+                  <span class="price-label"></span>
+                  <span class="price-amount">$380</span>
+                  <span class="price-currency">افضل سعر</span>
+                </div>
+              </div>
+              <div class="product-actions">
+                <a href="product-guest.html?id=5" class="product-button"><i class="fa-solid fa-info"></i> تفاصيل المنتج</a>
+                <a href="https://wa.me/8613020990375?text=السلام+عليكم،+أود+طلب+هذا+المنتج" target="_blank" class="product-button"><i class="fab fa-whatsapp"></i> اطلب المنتج واتس اب</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 6 -->
+          <div class="product-card" data-id="6">
+            <div class="product-image-container">
+              <div class="product-meta-overlay">
+                <span class="product-category"><i class="fa-solid fa-layer-group"></i> إكسسوارات</span>
+                <span class="product-supplier">مورد سويسري</span>
+                <span class="product-serial">SN: PRD006</span>
+              </div>
+              <div class="product-image">
+                <img src="https://via.placeholder.com/400x200/9b59b6/ffffff?text=منتج+6" alt="منتج 6">
+              </div>
+            </div>
+            <div class="product-info">
+              <h3 class="product-title">ساعة يد فاخرة<span><i class="fa fa-address-book-o" aria-hidden="true"></i> ياسر</span></h3>
+              <div class="product-meta-overlay2">
+                <span class="product-category2">إكسسوارات</span>
+                <span class="product-supplier2">مورد سويسري</span>
+                <span class="product-serial2">SN: PRD006</span>
+                <span class="product-price2">$2500</span>
+              </div>
+              <p class="product-description">ساعة سويسرية أوتوماتيكية فاخرة بتصميم كلاسيكي</p>
+              <div class="product-prices">
+                <div class="price-item">
+                  <span class="price-label"></span>
+                  <span class="price-amount">$2500</span>
+                  <span class="price-currency">افضل سعر</span>
+                </div>
+              </div>
+              <div class="product-actions">
+                <a href="product-guest.html?id=6" class="product-button"><i class="fa-solid fa-info"></i> تفاصيل المنتج</a>
+                <a href="https://wa.me/8613020990375?text=السلام+عليكم،+أود+طلب+هذا+المنتج" target="_blank" class="product-button"><i class="fab fa-whatsapp"></i> اطلب المنتج واتس اب</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- No Results Message -->
+    <div id="noResults" class="no-results hidden">
+      <div class="no-results-icon">🔍</div>
+      <h3 class="no-results-title">لا توجد منتجات</h3>
+      <p class="no-results-text">لم يتم العثور على منتجات تطابق معايير البحث الحالية</p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="copyright-content">
+        <div class="designer-info"><span class="designer-text">مصمم الموقع / صدام أحمد</span></div>
+        <div class="icon-group4">
+          <a href="https://www.facebook.com/s777967272" class="icon-btn4 icon-facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://wa.me/967777967272" class="icon-btn4 icon-whatsapp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+          <a href="tel:+967777967272" class="icon-btn4 icon-phone"><i class="fa fa-phone"></i></a>
+          <a href="https://tecnotasxcatalog.netlify.app/" class="icon-btn4 icon-website" target="_blank"><i class="fas fa-globe"></i></a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Simple filtering and sorting
+    const allCards = document.querySelectorAll('.product-card');
+    const searchInput = document.getElementById('searchInput');
+    const sortFilter = document.getElementById('sortFilter');
+    const clearBtn = document.getElementById('clearBtn');
+    const viewMode = document.getElementById('viewMode');
+    const productsGrid = document.getElementById('productsGrid');
+    const noResults = document.getElementById('noResults');
+
+    function applyFilters() {
+      const searchTerm = searchInput.value.toLowerCase();
+      let visibleCount = 0;
+
+      allCards.forEach(card => {
+        const title = card.querySelector('.product-title').textContent.toLowerCase();
+        const description = card.querySelector('.product-description').textContent.toLowerCase();
+        const matches = title.includes(searchTerm) || description.includes(searchTerm);
+        
+        if (matches || searchTerm === '') {
+          card.style.display = '';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      noResults.classList.toggle('hidden', visibleCount > 0);
+    }
+
+    function sortProducts() {
+      const sortValue = sortFilter.value;
+      const cardsArray = Array.from(allCards);
+      
+      if (sortValue === 'price-high' || sortValue === 'price-low') {
+        cardsArray.sort((a, b) => {
+          const priceA = parseFloat(a.querySelector('.price-amount').textContent.replace('$', ''));
+          const priceB = parseFloat(b.querySelector('.price-amount').textContent.replace('$', ''));
+          return sortValue === 'price-high' ? priceB - priceA : priceA - priceB;
+        });
+        
+        cardsArray.forEach(card => productsGrid.appendChild(card));
+      }
+    }
+
+    function changeViewMode() {
+      productsGrid.classList.remove('grid', 'list', 'compact-grid');
+      productsGrid.classList.add(viewMode.value);
+    }
+
+    searchInput.addEventListener('input', applyFilters);
+    sortFilter.addEventListener('change', () => {
+      applyFilters();
+      sortProducts();
+    });
+    clearBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      sortFilter.value = 'date';
+      applyFilters();
+    });
+    viewMode.addEventListener('change', changeViewMode);
+  </script>
+
+  <!-- Theme -->
+  <script src="js/theme.js"></script>
+</body>
+</html>
