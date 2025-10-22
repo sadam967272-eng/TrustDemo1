@@ -1,4 +1,4 @@
-const themes = ['theme1', 'theme2', 'theme3', 'theme4', 'theme5', 'theme6', 'theme7'];
+const themes = ['theme1', 'theme2', 'theme3', 'theme4', 'theme5' ];
 let currentThemeIndex = 0;
 
 // استرجاع الثيم من localStorage إذا كان موجودًا
